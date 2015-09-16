@@ -38,7 +38,13 @@ def get_config
 end
 
 def vim_puts(s)
-  VIM::command("echo '#{s.to_s}'")
+  if s.index "'" == nil
+    VIM::command("echo '#{s.to_s}'")
+  elsif s.index '"' == nil
+    VIM::command("echo \"#{s.to_s}\"")
+  else
+    VIM::command("echo \"#{s.gsub(/"/,"").to_s}\"")
+  end
 end
 
 def vim_err(s)
