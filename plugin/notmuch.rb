@@ -232,7 +232,7 @@ def search_render(search)
       authors = e.authors.to_utf8.split(/[,|]/).map { |a| author_filter(a) }.join(",")
       date = Time.at(e.newest_date).strftime(date_fmt)
       subject = e.messages.first['subject']
-      subject = Mail::Field.new("Subject: " + subject).to_s
+      subject = Mail::Field.parse("Subject: " + subject).to_s
       b << "%-12s %3s %-20.20s | %s (%s)" % [date, e.matched_messages, authors, subject, e.tags]
       $curbuf.threads << e.thread_id
     end
